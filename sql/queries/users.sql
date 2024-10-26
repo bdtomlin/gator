@@ -4,10 +4,10 @@ VALUES ($1, $2, $3, $4)
 RETURNING *;
 
 -- name: GetUser :one
-select * from users where name = $1 limit 1;
+SELECT * FROM users WHERE name = $1 LIMIT 1;
 
 -- name: DeleteAllUsers :exec
-delete from users;
+DELETE FROM users;
 
 -- name: GetUsers :many
-select * from users;
+SELECT * FROM users;

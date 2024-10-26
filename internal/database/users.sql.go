@@ -43,7 +43,7 @@ func (q *Queries) CreateUser(ctx context.Context, arg CreateUserParams) (User, e
 }
 
 const deleteAllUsers = `-- name: DeleteAllUsers :exec
-delete from users
+DELETE FROM users
 `
 
 func (q *Queries) DeleteAllUsers(ctx context.Context) error {
@@ -52,7 +52,7 @@ func (q *Queries) DeleteAllUsers(ctx context.Context) error {
 }
 
 const getUser = `-- name: GetUser :one
-select id, created_at, updated_at, name from users where name = $1 limit 1
+SELECT id, created_at, updated_at, name FROM users WHERE name = $1 LIMIT 1
 `
 
 func (q *Queries) GetUser(ctx context.Context, name string) (User, error) {
@@ -68,7 +68,7 @@ func (q *Queries) GetUser(ctx context.Context, name string) (User, error) {
 }
 
 const getUsers = `-- name: GetUsers :many
-select id, created_at, updated_at, name from users
+SELECT id, created_at, updated_at, name FROM users
 `
 
 func (q *Queries) GetUsers(ctx context.Context) ([]User, error) {
