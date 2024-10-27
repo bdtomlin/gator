@@ -5,16 +5,13 @@ import (
 	"errors"
 	"fmt"
 	"log"
+
+	"github.com/bdtomlin/gator/internal/database"
 )
 
-func handleFollowing(s *state, cmd command) error {
+func handleFollowing(s *state, cmd command, user database.User) error {
 	if len(cmd.args) != 0 {
 		log.Fatal(errors.New("This command doesn't take any args"))
-	}
-
-	user, err := s.db.GetUser(context.Background(), s.cfg.CurrentUserName)
-	if err != nil {
-		log.Fatal(err)
 	}
 
 	feedFollows, err := s.db.GetFeedFollowsForUser(context.Background(), user.ID)

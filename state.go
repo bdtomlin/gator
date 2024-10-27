@@ -9,8 +9,9 @@ import (
 )
 
 type state struct {
-	cfg *config.Config
-	db  *database.Queries
+	cfg  *config.Config
+	db   *database.Queries
+	user database.User
 }
 
 func newState() (*state, error) {
