@@ -38,6 +38,18 @@ func handleAddFeed(s *state, cmd command) error {
 		log.Fatal(err)
 	}
 
+	feedFollowParams := database.CreateFeedFollowParams{
+		ID:        uuid.New(),
+		CreatedAt: time.Now(),
+		UpdatedAt: time.Now(),
+		UserID:    user.ID,
+		FeedID:    feed.ID,
+	}
+	_, err = s.db.CreateFeedFollow(context.Background(), feedFollowParams)
+	if err != nil {
+		log.Fatal(err)
+	}
+
 	fmt.Println("The feed has been added")
 	fmt.Printf("%+v", feed)
 
