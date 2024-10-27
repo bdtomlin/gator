@@ -11,3 +11,10 @@ from feed_follows
 inner join users on users.id = feed_follows.user_id
 inner join feeds on feeds.id = feed_follows.feed_id
 where feed_follows.user_id = $1;
+
+-- name: DeleteFeedFollow :exec
+DELETE FROM feed_follows ff
+where ff.user_id = $1
+and ff.feed_id = (
+  select f.id from feeds f where f.url = $2
+);

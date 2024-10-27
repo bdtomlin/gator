@@ -2,7 +2,6 @@ package main
 
 import (
 	"database/sql"
-	"log"
 
 	"github.com/bdtomlin/gator/internal/config"
 	"github.com/bdtomlin/gator/internal/database"
@@ -22,7 +21,7 @@ func newState() (*state, error) {
 
 	db, err := sql.Open("postgres", cfg.DbUrl)
 	if err != nil {
-		log.Fatal(err)
+		return &state{}, err
 	}
 	dbQueries := database.New(db)
 
