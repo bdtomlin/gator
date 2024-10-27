@@ -7,18 +7,17 @@ import (
 	"fmt"
 	"html"
 	"io"
-	"log"
 	"net/http"
 )
 
 func handleAgg(s *state, cmd command) error {
 	if len(cmd.args) > 0 {
-		log.Fatal(errors.New("This command doesn't take any args"))
+		return errors.New("This command doesn't take any args")
 	}
 
 	feed, err := fetchFeed(context.Background(), "https://www.wagslane.dev/index.xml")
 	if err != nil {
-		log.Fatal(err)
+		return err
 	}
 
 	fmt.Printf("%+v", feed)

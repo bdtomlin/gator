@@ -4,17 +4,16 @@ import (
 	"context"
 	"errors"
 	"fmt"
-	"log"
 )
 
 func handleUsers(s *state, cmd command) error {
 	if len(cmd.args) > 0 {
-		log.Fatal(errors.New("This command doesn't take any args"))
+		return errors.New("This command doesn't take any args")
 	}
 
 	users, err := s.db.GetUsers(context.Background())
 	if err != nil {
-		log.Fatal(err)
+		return err
 	}
 
 	if len(users) == 0 {

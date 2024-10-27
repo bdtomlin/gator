@@ -4,7 +4,6 @@ import (
 	"context"
 	"errors"
 	"fmt"
-	"log"
 	"time"
 
 	"github.com/bdtomlin/gator/internal/database"
@@ -13,13 +12,13 @@ import (
 
 func handleFollow(s *state, cmd command, user database.User) error {
 	if len(cmd.args) != 1 {
-		log.Fatal(errors.New("This command requires one arg: url"))
+		return errors.New("This command requires one arg: url")
 	}
 
 	url := cmd.args[0]
 	feed, err := s.db.GetFeedForUrl(context.Background(), url)
 	if err != nil {
-		log.Fatal(err)
+		return err
 	}
 
 	feedFollowParams := database.CreateFeedFollowParams{
@@ -32,7 +31,7 @@ func handleFollow(s *state, cmd command, user database.User) error {
 
 	feedFollow, err := s.db.CreateFeedFollow(context.Background(), feedFollowParams)
 	if err != nil {
-		log.Fatal(err)
+		return err
 	}
 
 	fmt.Println("The feed has been followed")

@@ -4,7 +4,6 @@ import (
 	"context"
 	"errors"
 	"fmt"
-	"log"
 	"time"
 
 	"github.com/bdtomlin/gator/internal/database"
@@ -13,7 +12,7 @@ import (
 
 func handleAddFeed(s *state, cmd command, user database.User) error {
 	if len(cmd.args) < 2 {
-		log.Fatal(errors.New("This command requires the following args: name, url"))
+		return errors.New("This command requires the following args: name, url")
 	}
 
 	name := cmd.args[0]
@@ -30,7 +29,7 @@ func handleAddFeed(s *state, cmd command, user database.User) error {
 
 	feed, err := s.db.CreateFeed(context.Background(), feedParams)
 	if err != nil {
-		log.Fatal(err)
+		return err
 	}
 
 	feedFollowParams := database.CreateFeedFollowParams{
@@ -42,7 +41,7 @@ func handleAddFeed(s *state, cmd command, user database.User) error {
 	}
 	_, err = s.db.CreateFeedFollow(context.Background(), feedFollowParams)
 	if err != nil {
-		log.Fatal(err)
+		return err
 	}
 
 	fmt.Println("The feed has been added")

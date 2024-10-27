@@ -3,6 +3,7 @@ package main
 import (
 	"errors"
 	"fmt"
+	"log"
 )
 
 type command struct {
@@ -40,5 +41,9 @@ func (c *commands) run(s *state, cmd command) error {
 		return fmt.Errorf("Invalid command: %s", cmd.name)
 	}
 
-	return f(s, cmd)
+	err := f(s, cmd)
+	if err != nil {
+		log.Fatal(err)
+	}
+	return nil
 }

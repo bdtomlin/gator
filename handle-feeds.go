@@ -4,22 +4,21 @@ import (
 	"context"
 	"errors"
 	"fmt"
-	"log"
 )
 
 func handleFeeds(s *state, cmd command) error {
 	if len(cmd.args) != 0 {
-		log.Fatal(errors.New("This command doesn't accept any args"))
+		return errors.New("This command doesn't accept any args")
 	}
 
 	_, err := s.db.GetUser(context.Background(), s.cfg.CurrentUserName)
 	if err != nil {
-		log.Fatal(err)
+		return err
 	}
 
 	feeds, err := s.db.GetFeedsWithUsers(context.Background())
 	if err != nil {
-		log.Fatal(err)
+		return err
 	}
 
 	fmt.Println("Here are all of the feeds:")

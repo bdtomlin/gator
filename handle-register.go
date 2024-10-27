@@ -4,7 +4,6 @@ import (
 	"context"
 	"errors"
 	"fmt"
-	"log"
 	"time"
 
 	"github.com/bdtomlin/gator/internal/database"
@@ -24,12 +23,12 @@ func handleRegister(s *state, cmd command) error {
 		Name:      name,
 	})
 	if err != nil {
-		log.Fatal(err)
+		return err
 	}
 
 	err = s.cfg.SetUser(u.Name)
 	if err != nil {
-		log.Fatal(err)
+		return err
 	}
 
 	fmt.Println("The user has been created")
