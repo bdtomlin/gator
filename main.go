@@ -25,6 +25,7 @@ func main() {
 	cmds.register("follow", middlewareLoggedIn(handleFollow))
 	cmds.register("unfollow", middlewareLoggedIn(handleUnfollow))
 	cmds.register("following", middlewareLoggedIn(handleFollowing))
+	cmds.register("browse", middlewareLoggedIn(handleBrowse))
 
 	cmd, err := newCommand(os.Args)
 	if err != nil {
